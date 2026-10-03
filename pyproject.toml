@@ -24,3 +24,6 @@ dependencies = [
 [project.scripts]
 laravel-doctor = "doctor.cli:main"
 doctor = "doctor.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["doctor*", "server*"]
