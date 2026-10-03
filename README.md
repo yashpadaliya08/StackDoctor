@@ -37,48 +37,48 @@ Instead of dealing with broken `.env` secrets, missing database drivers, unbuilt
 
 ```mermaid
 graph TD
-    User([Developer / CI/CD Push]) -->|Git URL / Upload ZIP / Local Path| Ingestion[Ingestion Subsystem]
+    User["Developer / CI/CD Push"] -->|Git URL / Upload ZIP / Local Path| Ingestion["Ingestion Subsystem"]
 
-    subgraph Core Engine ["StackDoctor Engine (Python / FastAPI)"]
-        Ingestion --> Cloner[SafeGitCloner / ZipExtractor / CpanelSanitizer]
-        Cloner --> Detector[FrameworkDetector (Laravel, Node, Python, MERN)]
-        Detector --> Doctor[Doctor Diagnostic Engine]
+    subgraph CoreEngine ["StackDoctor Engine (Python / FastAPI)"]
+        Ingestion --> Cloner["SafeGitCloner / ZipExtractor / CpanelSanitizer"]
+        Cloner --> Detector["FrameworkDetector (Laravel, Node, Python, MERN)"]
+        Detector --> Doctor["Doctor Diagnostic Engine"]
         
-        Doctor --> Inspectors[Specialized Static Inspectors]
-        Inspectors --> Composer[Composer / Package Inspector]
-        Inspectors --> Env[Env & Secret Auditor]
-        Inspectors --> DB[Database Inspector]
-        Inspectors --> Asset[Vite / Asset Inspector]
-        Inspectors --> Perms[Storage & Permission Inspector]
+        Doctor --> Inspectors["Specialized Static Inspectors"]
+        Inspectors --> Composer["Composer / Package Inspector"]
+        Inspectors --> Env["Env & Secret Auditor"]
+        Inspectors --> DB["Database Inspector"]
+        Inspectors --> Asset["Vite / Asset Inspector"]
+        Inspectors --> Perms["Storage & Permission Inspector"]
         
-        Inspectors --> Scorer[100-Point Readiness Scorer]
-        Scorer --> Fixer[Autonomous Fixer Subsystem]
-        Fixer --> Pipeline[Deployment Pipeline Orchestrator]
+        Inspectors --> Scorer["100-Point Readiness Scorer"]
+        Scorer --> Fixer["Autonomous Fixer Subsystem"]
+        Fixer --> Pipeline["Deployment Pipeline Orchestrator"]
     end
 
     subgraph Runtimes ["Execution Drivers"]
-        Pipeline --> Drivers{Target Engine}
-        Drivers -->|Edge ARM Hardware| PhoneDriver[PhoneRemoteDriver via ADB & Termux]
-        Drivers -->|Local Container| DockerDriver[LocalDockerDriver: Multi-Stage PHP-FPM / Nginx]
+        Pipeline --> Drivers{"Target Engine"}
+        Drivers -->|Edge ARM Hardware| PhoneDriver["PhoneRemoteDriver via ADB & Termux"]
+        Drivers -->|Local Container| DockerDriver["LocalDockerDriver: Multi-Stage PHP-FPM / Nginx"]
     end
 
     subgraph Networking ["Zero-Trust Networking & Proxy"]
-        PhoneDriver --> Cloudflared[Cloudflare Tunnel Client]
-        DockerDriver --> Caddy[Dynamic Caddy Proxy + Sablier Scale-to-Zero]
-        Cloudflared --> PublicWeb[Public HTTPS: *.trycloudflare.com]
-        Caddy --> CustomDomain[Custom Domain / Dynamic SSL]
+        PhoneDriver --> Cloudflared["Cloudflare Tunnel Client"]
+        DockerDriver --> Caddy["Dynamic Caddy Proxy + Sablier Scale-to-Zero"]
+        Cloudflared --> PublicWeb["Public HTTPS: *.trycloudflare.com"]
+        Caddy --> CustomDomain["Custom Domain / Dynamic SSL"]
     end
 
     subgraph Resilience ["Autonomous Supervision"]
-        Watchdog[24/7 Background Watchdog] -.->|Heartbeat Loop every 25s| PhoneDriver
-        Watchdog -.->|Detects Crash / Battery Kill| AutoHeal[Automated Relaunch & Tunnel Recovery]
+        Watchdog["24/7 Background Watchdog"] -.->|Heartbeat Loop every 25s| PhoneDriver
+        Watchdog -.->|Detects Crash / Battery Kill| AutoHeal["Automated Relaunch & Tunnel Recovery"]
     end
 
     subgraph Dashboard ["Obsidian Edge Web Console (React + Vite)"]
-        WebUI[Active Deployments Hub] <-->|REST + WebSocket Log Stream| Core Engine
-        WebUI --> Terminal[Live Shell / Artisan Console]
-        WebUI --> DBViewer[Embedded Database Manager]
-        WebUI --> APM[Real-Time Analytics & Uptime]
+        WebUI["Active Deployments Hub"] <-->|REST + WebSocket Log Stream| CoreEngine
+        WebUI --> Terminal["Live Shell / Artisan Console"]
+        WebUI --> DBViewer["Embedded Database Manager"]
+        WebUI --> APM["Real-Time Analytics & Uptime"]
     end
 ```
 

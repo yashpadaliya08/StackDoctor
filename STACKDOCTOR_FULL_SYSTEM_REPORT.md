@@ -26,50 +26,50 @@ Rather than forcing developers to rent costly cloud virtual machines (AWS EC2, D
 
 ```mermaid
 graph TD
-    User([Developer / Student]) -->|Push Git URL / Upload ZIP / Scan Folder| Ingestion[Ingestion Subsystem]
+    User["Developer / Student"] -->|Push Git URL / Upload ZIP / Scan Folder| Ingestion["Ingestion Subsystem"]
     
-    subgraph Core Engine ["StackDoctor Engine (Python / FastAPI)"]
-        Ingestion --> Cloner[SafeGitCloner / SafeZipExtractor / CpanelSanitizer]
-        Cloner --> Detector[FrameworkDetector (Laravel, Node, Python, MERN)]
-        Detector --> Doctor[Doctor Diagnostic Engine]
+    subgraph CoreEngine ["StackDoctor Engine (Python / FastAPI)"]
+        Ingestion --> Cloner["SafeGitCloner / SafeZipExtractor / CpanelSanitizer"]
+        Cloner --> Detector["FrameworkDetector (Laravel, Node, Python, MERN)"]
+        Detector --> Doctor["Doctor Diagnostic Engine"]
         
-        Doctor --> Inspectors[Specialized Inspectors]
-        Inspectors --> Composer[Composer / Package Inspector]
-        Inspectors --> Env[Env / Secret Auditor]
-        Inspectors --> DB[Database Inspector]
-        Inspectors --> Asset[Vite / Asset Inspector]
-        Inspectors --> Perms[Storage & Permission Inspector]
+        Doctor --> Inspectors["Specialized Inspectors"]
+        Inspectors --> Composer["Composer / Package Inspector"]
+        Inspectors --> Env["Env / Secret Auditor"]
+        Inspectors --> DB["Database Inspector"]
+        Inspectors --> Asset["Vite / Asset Inspector"]
+        Inspectors --> Perms["Storage & Permission Inspector"]
         
-        Inspectors --> Scorer[Scorer: 100-Point Readiness Engine]
-        Scorer --> Fixer[Autonomous Fixer Subsystem]
-        Fixer --> Pipeline[Deployment Pipeline Orchestrator]
+        Inspectors --> Scorer["Scorer: 100-Point Readiness Engine"]
+        Scorer --> Fixer["Autonomous Fixer Subsystem"]
+        Fixer --> Pipeline["Deployment Pipeline Orchestrator"]
     end
 
-    subgraph Runtime Drivers ["Edge & Container Runtime Drivers"]
-        Pipeline --> Drivers{Deployment Target}
-        Drivers -->|Target: Phone / ARM| PhoneDriver[PhoneRemoteDriver via ADB & Termux]
-        Drivers -->|Target: Local Docker| DockerDriver[LocalDockerDriver: Multi-Stage PHP-FPM/Nginx]
+    subgraph RuntimeDrivers ["Edge & Container Runtime Drivers"]
+        Pipeline --> Drivers{"Deployment Target"}
+        Drivers -->|Target: Phone / ARM| PhoneDriver["PhoneRemoteDriver via ADB & Termux"]
+        Drivers -->|Target: Local Docker| DockerDriver["LocalDockerDriver: Multi-Stage PHP-FPM/Nginx"]
     end
 
-    subgraph Network & Traffic ["Zero-Trust Networking & Proxy"]
-        PhoneDriver --> Cloudflared[Cloudflare Tunnel Client]
-        DockerDriver --> Caddy[Dynamic Caddy Reverse Proxy]
-        Caddy --> Sablier[Sablier Scale-to-Zero Middleware]
-        Cloudflared --> PublicWeb[Public HTTPS: *.trycloudflare.com]
-        Caddy --> CustomDomain[Custom Domain / SSL]
+    subgraph NetworkTraffic ["Zero-Trust Networking & Proxy"]
+        PhoneDriver --> Cloudflared["Cloudflare Tunnel Client"]
+        DockerDriver --> Caddy["Dynamic Caddy Reverse Proxy"]
+        Caddy --> Sablier["Sablier Scale-to-Zero Middleware"]
+        Cloudflared --> PublicWeb["Public HTTPS: *.trycloudflare.com"]
+        Caddy --> CustomDomain["Custom Domain / SSL"]
     end
 
-    subgraph Resilience & Supervision ["Autonomous Supervision"]
-        Watchdog[24/7 Health Watchdog Supervisor] -.->|Heartbeat Loop every 25s| PhoneDriver
-        Watchdog -.->|Detects Crash / Battery Kill| AutoHeal[Automated Relaunch & Tunnel Recovery]
-        AutoHeal -.-> Registry[(deployments_registry.json)]
+    subgraph ResilienceSupervision ["Autonomous Supervision"]
+        Watchdog["24/7 Health Watchdog Supervisor"] -.->|Heartbeat Loop every 25s| PhoneDriver
+        Watchdog -.->|Detects Crash / Battery Kill| AutoHeal["Automated Relaunch & Tunnel Recovery"]
+        AutoHeal -.-> Registry["deployments_registry.json"]
     end
 
-    subgraph Web Console ["Cyber-Prism Obsidian UI (React + Vite)"]
-        WebUI[Active Deployments Hub] <-->|REST + WebSocket Log Stream| Core Engine
-        WebUI --> Terminal[Live Artisan / Shell Console]
-        WebUI --> DBExplorer[Embedded Database Manager]
-        WebUI --> APM[Real-Time Analytics & Uptime]
+    subgraph WebConsole ["Cyber-Prism Obsidian UI (React + Vite)"]
+        WebUI["Active Deployments Hub"] <-->|REST + WebSocket Log Stream| CoreEngine
+        WebUI --> Terminal["Live Artisan / Shell Console"]
+        WebUI --> DBExplorer["Embedded Database Manager"]
+        WebUI --> APM["Real-Time Analytics & Uptime"]
     end
 ```
 
