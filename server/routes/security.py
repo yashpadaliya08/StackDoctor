@@ -4,7 +4,8 @@ Security & Audit Trail API Router
 Exposes endpoints for querying the system audit trail and rate-limiting metrics.
 """
 
-from fastapi import APIRouter, Query, Request
+from fastapi import APIRouter, HTTPException, Query, Request
+from server.config import SD_AUDIT_API_KEY
 from server.middleware.rate_limiter import rate_limiter
 from server.orchestrator.audit_log import audit_logger
 
@@ -41,11 +42,9 @@ async def get_rate_limit_stats():
 async def record_custom_audit(req: Request):
     """Manually append a security audit record (e.g. from frontend action)."""
     # Validate API key to prevent unauthenticated audit log injection
-    import os
-    expected_key = os.environ.get("SD_AUDIT_API_KEY", "stackdoctor-internal-key")
+    expected_key = SD_AUDIT_API_KEY or os.environ.get("SD_AUDIT_API_KEY", "stackdoctor-internal-key")
     provided_key = req.headers.get("X-Audit-Key", "")
     if provided_key != expected_key:
-        from fastapi import HTTPException
         raise HTTPException(status_code=403, detail="Forbidden: invalid or missing audit API key.")
 
     data = await req.json()

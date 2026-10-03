@@ -2,6 +2,7 @@ import asyncio
 import logging
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
+from server.config import WATCHDOG_INTERVAL
 from server.orchestrator.registry import deployment_registry
 
 logger = logging.getLogger("doctor.watchdog")
@@ -187,4 +188,4 @@ class HealthWatchdog:
 
 
 # Global Watchdog Singleton
-watchdog = HealthWatchdog()
+watchdog = HealthWatchdog(check_interval_sec=WATCHDOG_INTERVAL)

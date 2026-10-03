@@ -3,6 +3,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from server.config import HOST, PORT, CORS_ORIGINS
 from server.routes import analyze, deploy, fix, github_deploy, phone, manage, cicd, domains, security, analytics, gateway
 from server.orchestrator.watchdog import watchdog
 from server.middleware.rate_limiter import RateLimitMiddleware
@@ -26,17 +27,10 @@ app = FastAPI(
 # Rate Limiter Middleware
 app.add_middleware(RateLimitMiddleware)
 
-# CORS Middleware - Explicit Origins
-ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-]
-
+# CORS Middleware - Configurable Origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -82,7 +76,5 @@ if dist_dir.is_dir():
 
 
 if __name__ == "__main__":
-    import os
     import uvicorn
-    bind_host = os.environ.get("HOST", "127.0.0.1")
-    uvicorn.run("server.main:app", host=bind_host, port=8000, reload=True)
+    uvicorn.run("server.main:app", host=HOST, port=PORT, reload=True)

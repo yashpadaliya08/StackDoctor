@@ -11,7 +11,7 @@ import sqlite3
 from fastapi import APIRouter, HTTPException, UploadFile, File, Response, Depends, Request
 from pydantic import BaseModel
 
-from server.config import PROJECTS_DIR
+from server.config import PROJECTS_DIR, STACKDOCTOR_API_KEY
 from server.orchestrator.driver import PhoneRemoteDriver
 from server.orchestrator.pipeline import orchestrator
 from server.orchestrator.registry import deployment_registry
@@ -41,7 +41,7 @@ def require_management_access(request: Request) -> None:
     Verifies management access.
     If STACKDOCTOR_API_KEY is configured in the environment, enforces matching API key or Bearer token.
     """
-    expected = os.environ.get("STACKDOCTOR_API_KEY")
+    expected = STACKDOCTOR_API_KEY or os.environ.get("STACKDOCTOR_API_KEY")
     if expected:
         api_key = request.headers.get("X-API-Key", "")
         auth_header = request.headers.get("Authorization", "")

@@ -9,6 +9,7 @@ import subprocess
 from pathlib import Path
 from typing import Any, Callable, Dict
 
+from server.config import PHONE_HOST, PHONE_PORT, PHONE_USER, PHONE_PASSWORD
 from .base import BaseDriver, compile_frontend_if_needed
 
 class PhoneRemoteDriver(BaseDriver):
@@ -19,10 +20,10 @@ class PhoneRemoteDriver(BaseDriver):
     launches the app, and routes it through Cloudflare Tunnel for 24/7 public HTTPS access.
     """
 
-    DEFAULT_HOST = os.environ.get("PHONE_HOST", "127.0.0.1")
-    DEFAULT_PORT = int(os.environ.get("PHONE_PORT", "8022"))
-    DEFAULT_USER = os.environ.get("PHONE_USER", "termux")
-    DEFAULT_PASSWORD = os.environ.get("PHONE_PASSWORD", "")
+    DEFAULT_HOST = PHONE_HOST
+    DEFAULT_PORT = PHONE_PORT
+    DEFAULT_USER = PHONE_USER
+    DEFAULT_PASSWORD = PHONE_PASSWORD
 
     def __init__(
         self,

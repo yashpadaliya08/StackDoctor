@@ -4,7 +4,7 @@
   <strong>Autonomous Edge Cloud Orchestrator & Full-Stack Deployment Health Platform</strong>
 </p>
 
-<p align="center">
+  <a href="https://github.com/yashpadaliya08/StackDoctor/actions/workflows/ci.yml"><img src="https://github.com/yashpadaliya08/StackDoctor/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white" alt="Python 3.10+">
   <img src="https://img.shields.io/badge/FastAPI-0.110%2B-009688?logo=fastapi&logoColor=white" alt="FastAPI">
   <img src="https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black" alt="React 18">
@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Docker-Multi--stage-2496ED?logo=docker&logoColor=white" alt="Docker">
   <img src="https://img.shields.io/badge/Cloudflare-Zero--Trust_Tunnels-F38020?logo=cloudflare&logoColor=white" alt="Cloudflare Tunnels">
   <img src="https://img.shields.io/badge/Tests-47%2F47%20Passed-brightgreen" alt="Tests Passed">
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
 </p>
 
 ---
@@ -133,6 +133,12 @@ source venv/bin/activate
 # Install backend dependencies & CLI tools
 pip install -r requirements.txt
 pip install -e .
+
+# Configure Environment Variables & Secrets
+# Windows:
+copy .env.example .env
+# Linux / macOS:
+# cp .env.example .env
 
 # Install frontend dependencies
 cd web
