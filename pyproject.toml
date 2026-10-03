@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "laravel-doctor"
+version = "1.0.0"
+description = "Automated Diagnostic & Fix Engine for Laravel Projects"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2.6.0",
+    "rich>=13.7.0",
+    "python-dotenv>=1.0.0",
+    "cryptography>=42.0.0",
+    "GitPython>=3.1.40",
+]
+
+[project.scripts]
+laravel-doctor = "doctor.cli:main"
+doctor = "doctor.cli:main"

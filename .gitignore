@@ -1,0 +1,51 @@
+# Agent and testing artifacts
+.agents/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Documentation and Research scratch
+docs/
+research/
+image.png
+scripts/
+
+# Build artifacts & packages
+laravel_doctor.egg-info/
+*.egg-info/
+dist/
+build/
+
+# Runtime data & uploads
+data/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Node & Frontend
+node_modules/
+web/node_modules/
+web/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.tmp
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
