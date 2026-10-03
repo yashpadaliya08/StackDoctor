@@ -27,3 +27,8 @@ doctor = "doctor.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["doctor*", "server*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-v --tb=short"

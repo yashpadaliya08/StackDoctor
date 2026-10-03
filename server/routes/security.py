@@ -42,7 +42,7 @@ async def get_rate_limit_stats():
 async def record_custom_audit(req: Request):
     """Manually append a security audit record (e.g. from frontend action)."""
     # Validate API key to prevent unauthenticated audit log injection
-    expected_key = SD_AUDIT_API_KEY or os.environ.get("SD_AUDIT_API_KEY", "stackdoctor-internal-key")
+    expected_key = os.environ.get("SD_AUDIT_API_KEY") or SD_AUDIT_API_KEY or "stackdoctor-internal-key"
     provided_key = req.headers.get("X-Audit-Key", "")
     if provided_key != expected_key:
         raise HTTPException(status_code=403, detail="Forbidden: invalid or missing audit API key.")

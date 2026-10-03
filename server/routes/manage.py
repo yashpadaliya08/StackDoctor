@@ -41,7 +41,7 @@ def require_management_access(request: Request) -> None:
     Verifies management access.
     If STACKDOCTOR_API_KEY is configured in the environment, enforces matching API key or Bearer token.
     """
-    expected = STACKDOCTOR_API_KEY or os.environ.get("STACKDOCTOR_API_KEY")
+    expected = os.environ.get("STACKDOCTOR_API_KEY") or STACKDOCTOR_API_KEY
     if expected:
         api_key = request.headers.get("X-API-Key", "")
         auth_header = request.headers.get("Authorization", "")
